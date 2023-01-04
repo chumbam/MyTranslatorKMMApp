@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.isaev.mytranslator_kmm.android"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.isaev.mytranslator_kmm.android"
         minSdk = 24
@@ -22,7 +22,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = Deps.composeVersion
     }
     packagingOptions {
         resources {
