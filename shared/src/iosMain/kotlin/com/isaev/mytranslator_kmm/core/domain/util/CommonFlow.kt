@@ -1,0 +1,24 @@
+package com.isaev.mytranslator_kmm.core.domain.util
+
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+
+
+// Мы все это делаем потому что на иос нет флоу и нам необходимо делать подобную обертку с реализованными методами субскайб и диспосе с возможностью собирать данные и преостанавливать их публикацию
+actual open class CommonFlow<T> actual constructor(
+    private val flow: Flow<T>
+) : Flow<T> by flow {
+
+    fun subscribe(
+        coroutineScope: CoroutineScope,
+        dispatcher: CoroutineDispatcher,
+        onCollect: (T) -> Unit
+    ): DisposableHandle {
+        val job = coroutineScope.launch(dispatcher) {
+            flow.collect(onCollect)
+        }
+        return DisposableHandle { job.cancel() }
+    }
+}
