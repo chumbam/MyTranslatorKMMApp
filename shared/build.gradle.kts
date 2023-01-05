@@ -22,7 +22,7 @@ kotlin {
             baseName = "shared"
         }
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -80,5 +80,12 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 32
+    }
+}
+
+sqldelight {
+    database("TranslateDatabase") {
+        packageName = "com.isaev.mytranslator_kmm.database"
+        sourceFolders = listOf("sqldelight")
     }
 }
