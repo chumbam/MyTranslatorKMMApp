@@ -51,7 +51,7 @@ dependencies {
     implementation(Deps.hiltAndroid)
     kapt(Deps.hiltAndroidCompiler)
     kapt(Deps.hiltCompiler)
-    implementation(Deps.composeUi)
+    implementation(Deps.hiltNavigationCompose)
 
     implementation(Deps.ktorAndroid)
 
