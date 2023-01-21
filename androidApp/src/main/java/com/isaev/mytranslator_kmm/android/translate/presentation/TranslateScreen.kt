@@ -6,7 +6,10 @@ import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -14,12 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
-import com.isaev.mytranslator_kmm.android.translate.presentation.components.LanguageDropDown
-import com.isaev.mytranslator_kmm.android.translate.presentation.components.SwapLanguageButton
-import com.isaev.mytranslator_kmm.android.translate.presentation.components.TranslateTextField
-import com.isaev.mytranslator_kmm.android.translate.presentation.components.rememberTextToSpeech
+import com.isaev.mytranslator_kmm.android.R
+import com.isaev.mytranslator_kmm.android.translate.presentation.components.*
 import com.isaev.mytranslator_kmm.translate.presentation.TranslateEvent
 import com.isaev.mytranslator_kmm.translate.presentation.TranslateState
 import java.util.*
@@ -115,7 +117,7 @@ fun TranslateScreen(
                         onEvent(TranslateEvent.CloseTranslation)
                     },
                     onSpeakerClick = {
-                        tts.language = state.toLanguage.toLocale() ?: Locale.ENGLISHg
+                        tts.language = state.toLanguage.toLocale() ?: Locale.ENGLISH
                         tts.speak(
                             state.toText,
                             TextToSpeech.QUEUE_FLUSH,
@@ -125,6 +127,23 @@ fun TranslateScreen(
                     },
                     onTextFieldClick = {
                         onEvent(TranslateEvent.EditTranslation)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            item {
+                if (state.history.isNotEmpty()) {
+                    Text(
+                        text = stringResource(id = R.string.history),
+                        style = MaterialTheme.typography.h2
+                    )
+                }
+            }
+            items(state.history) { item ->
+                TranslateHistoryItem(
+                    item = item,
+                    onCLick = {
+                        onEvent(TranslateEvent.SelectHistoryItem(item))
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
