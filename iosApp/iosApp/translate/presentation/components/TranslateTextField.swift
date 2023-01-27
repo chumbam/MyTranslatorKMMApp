@@ -18,6 +18,7 @@ struct TranslateTextField: View {
     var toLanguage: UiLanguage
     var onTranslateEvent: (TranslateEvent) -> Void
     
+    
     var body: some View {
         if toText == nil || isTranslating {
             IdleTextField(
@@ -110,6 +111,8 @@ private extension TranslateTextField {
         var toLanguage: UiLanguage
         var onTranslateEvent: (TranslateEvent) -> Void
         
+        private let tts = TextToSpeech()
+        
         var body: some View {
             VStack(alignment: .leading) {
                 LanguageDisplay(language: fromLanguage)
@@ -151,7 +154,10 @@ private extension TranslateTextField {
                                     .foregroundColor(.lightBlue)
                     }
                     Button(action: {
-                        
+                        tts.speak(
+                            text: toText,
+                            language: toLanguage.language.langCode
+                        )
                             }){
                                Image(systemName: "speaker.wave.2")
                                     .foregroundColor(.lightBlue)
