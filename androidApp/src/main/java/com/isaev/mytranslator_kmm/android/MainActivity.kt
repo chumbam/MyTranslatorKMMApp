@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -23,11 +24,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.isaev.mytranslator_kmm.Greeting
 import com.isaev.mytranslator_kmm.android.core.presentation.Routes
+import com.isaev.mytranslator_kmm.android.text_to_speech.presentation.AndroidVoiceToTextViewModel
+import com.isaev.mytranslator_kmm.android.text_to_speech.presentation.VoiceToTextScreen
 import com.isaev.mytranslator_kmm.android.translate.presentation.AndroidTranslateViewModel
 import com.isaev.mytranslator_kmm.android.translate.presentation.TranslateScreen
 import com.isaev.mytranslator_kmm.translate.presentation.TranslateEvent
+import com.isaev.mytranslator_kmm.voice_to_text.presentation.VoiceToTextEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
@@ -120,6 +123,16 @@ fun TranslateRoot() {
         composable(route = Routes.TRANSLATE) {
             val viewModel = hiltViewModel<AndroidTranslateViewModel>()
             val state by viewModel.state.collectAsState()
+
+            val voiceResult by it
+                .savedStateHandle
+                .getStateFlow<String?>("voiceResult", null)
+                .collectAsState()
+            LaunchedEffect(voiceResult) {
+                viewModel.onEvent(TranslateEvent.SubmitVoiceResult(voiceResult))
+                it.savedStateHandle["voiceResult"] = null
+            }
+
             TranslateScreen(
                 state = state,
                 onEvent = { event ->
@@ -141,8 +154,32 @@ fun TranslateRoot() {
                     defaultValue = "en"
                 }
             )
-        ) {
-            Text(text = "Voice-To-Text")
+        ) { backStackEntry ->
+            val languageCode = backStackEntry.arguments?.getString("languageCode") ?: "ru"
+            val viewModel = hiltViewModel<AndroidVoiceToTextViewModel>()
+            val state by viewModel.state.collectAsState()
+
+            VoiceToTextScreen(
+                state = state,
+                languageCode = languageCode,
+                onResult = { spokenText ->
+                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                        "voiceResult", spokenText
+                    )
+                    navController.popBackStack()
+                },
+                onEvent = { event ->
+
+                    when (event) {
+                        is VoiceToTextEvent.Close -> {
+                            navController.popBackStack()
+                        }
+                        else -> {
+                            viewModel.onEvent(event)
+                        }
+                    }
+
+                })
         }
     }
 }
