@@ -25,6 +25,7 @@
 		CE45C01E298039A600E3C291 /* TranslateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE45C01D298039A600E3C291 /* TranslateTextField.swift */; };
 		CE8760A4297D570200213DDC /* IOSTranslateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8760A3297D570200213DDC /* IOSTranslateViewModel.swift */; };
 		CE8760A6297D572000213DDC /* TranslateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8760A5297D572000213DDC /* TranslateScreen.swift */; };
+		CEBAB62E298E69A00087A756 /* IOSVoiceToTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBAB62D298E69A00087A756 /* IOSVoiceToTextViewModel.swift */; };
 		CEC46A3F297D5091007FC09B /* SmallLanguageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC46A3E297D5091007FC09B /* SmallLanguageIcon.swift */; };
 		CEC46A41297D53E1007FC09B /* SwapLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC46A40297D53E1007FC09B /* SwapLanguageButton.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 		CE45C01D298039A600E3C291 /* TranslateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextField.swift; sourceTree = "<group>"; };
 		CE8760A3297D570200213DDC /* IOSTranslateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTranslateViewModel.swift; sourceTree = "<group>"; };
 		CE8760A5297D572000213DDC /* TranslateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateScreen.swift; sourceTree = "<group>"; };
+		CEBAB62D298E69A00087A756 /* IOSVoiceToTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSVoiceToTextViewModel.swift; sourceTree = "<group>"; };
 		CEC46A3E297D5091007FC09B /* SmallLanguageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallLanguageIcon.swift; sourceTree = "<group>"; };
 		CEC46A40297D53E1007FC09B /* SwapLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapLanguageButton.swift; sourceTree = "<group>"; };
 		F685F7271C1C52DC166721D5 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				CE417D6F298A8F5C005345F3 /* components */,
+				CEBAB62D298E69A00087A756 /* IOSVoiceToTextViewModel.swift */,
 			);
 			path = presentation;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE45C01C298036D700E3C291 /* ProgressButton.swift in Sources */,
+				CEBAB62E298E69A00087A756 /* IOSVoiceToTextViewModel.swift in Sources */,
 				CE417D71298A8F85005345F3 /* MicrophonePowerObserver.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				CE45C0182980329B00E3C291 /* GradientSurface.swift in Sources */,
