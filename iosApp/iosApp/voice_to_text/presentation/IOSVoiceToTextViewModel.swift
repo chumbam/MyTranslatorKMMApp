@@ -28,6 +28,7 @@ import Combine
         self.parser = parser
         self.languageCode = languageCode
         self.viewModel = VoiceToTextViewModel(parser: parser, coroutineScope: nil)
+        self.viewModel.onEvent(event: VoiceToTextEvent.PermissionResult(isGranted: true, isPermanentlyDeclined: false))
     }
     
     func onEvent(event: VoiceToTextEvent) {
@@ -40,10 +41,10 @@ import Combine
                 self?.state = state
             }
         }
-        
-        func dispose() {
-            handle?.dispose()
-            onEvent(event: VoiceToTextEvent.Reset())
-        }
+    }
+    
+    func dispose() {
+        handle?.dispose()
+        onEvent(event: VoiceToTextEvent.Reset())
     }
 }
